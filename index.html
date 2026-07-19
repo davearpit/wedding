@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0807" />
+    <title>Arpit &amp; Senjuti</title>
+    <meta name="description" content="A cinematic wedding invitation for Arpit and Senjuti." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Lavishly+Yours&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main class="hero" aria-label="Welcome">
+      <div class="hero__media" data-hero-kenburns>
+        <picture>
+          <source
+            media="(max-width: 900px)"
+            data-hero-source-mobile
+            srcset="assets/hero-mobile.jpg"
+          />
+          <img class="hero__image" data-hero-image src="assets/hero.jpg" alt="" />
+        </picture>
+      </div>
+      <div class="hero__shade" aria-hidden="true"></div>
+      <div class="hero__copy">
+        <h1 class="hero__title" data-hero-title>
+          <span class="hero__title-names" data-hero-names-text>Arpit &amp; Senjuti</span>
+          <span class="hero__title-tagline" data-hero-tagline>are getting married</span>
+        </h1>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
