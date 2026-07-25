@@ -9,31 +9,153 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Lavishly+Yours&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Lavishly+Yours&family=Noto+Sans+Symbols+2:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/google-sans" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <main class="hero" aria-label="Welcome">
-      <div class="hero__media" data-hero-kenburns>
-        <picture>
-          <source
-            media="(max-width: 900px)"
-            data-hero-source-mobile
-            srcset="assets/hero-mobile.jpg"
-          />
-          <img class="hero__image" data-hero-image src="assets/hero.jpg" alt="" />
-        </picture>
+    <div class="loader" data-loader aria-hidden="true">
+      <div class="loader__inner">
+        <div class="loader__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Loading">
+          <span class="loader__bar-fill" data-loader-fill></span>
+        </div>
       </div>
-      <div class="hero__shade" aria-hidden="true"></div>
-      <div class="hero__copy">
-        <h1 class="hero__title" data-hero-title>
-          <span class="hero__title-names" data-hero-names-text>Arpit &amp; Senjuti</span>
-          <span class="hero__title-tagline" data-hero-tagline>are getting married</span>
-        </h1>
+    </div>
+
+    <audio data-audio preload="auto" loop></audio>
+
+    <button
+      class="audio-toggle"
+      type="button"
+      data-audio-toggle
+      aria-label="Unmute background music"
+      aria-pressed="false"
+      hidden
+    >
+      <svg class="audio-toggle__icon audio-toggle__icon--muted" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"
+          fill="currentColor"
+        />
+      </svg>
+      <svg class="audio-toggle__icon audio-toggle__icon--unmuted" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+          fill="currentColor"
+        />
+      </svg>
+    </button>
+
+    <div class="viewport" data-viewport>
+      <div class="wallpaper" data-wallpaper aria-hidden="true">
+        <div class="wallpaper__media" data-hero-kenburns>
+          <picture>
+            <source
+              media="(max-width: 900px)"
+              data-hero-source-mobile
+              srcset="assets/hero-mobile.jpg"
+            />
+            <img class="wallpaper__image" data-hero-image src="assets/hero.jpg" alt="" />
+          </picture>
+        </div>
       </div>
-    </main>
+
+      <div class="screens" data-screens>
+        <section class="screen screen--hero" data-screen="hero" aria-label="Welcome">
+          <div class="hero">
+            <div class="hero__copy">
+              <h1 class="hero__title" data-hero-title>
+                <span class="hero__title-names" data-hero-names-text>Arpit &amp; Senjuti</span>
+                <span class="hero__title-tagline" data-hero-tagline>are getting married</span>
+              </h1>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen screen--details" data-screen="details" aria-label="Wedding details">
+          <div class="details">
+            <div class="details__view details__view--info is-active" data-details-view="info">
+              <div class="details__split">
+                <div class="details__copy">
+                  <p class="details__line details__line--pre">on</p>
+                  <p class="details__line details__line--date" data-details-date>18th January 2027</p>
+                  <p class="details__line details__line--pre">in</p>
+                  <p class="details__line details__line--place" data-details-place>
+                    The City of Joy – Kolkata
+                  </p>
+                  <hr class="details__divider" />
+                  <p class="details__line details__line--countdown-label">The countdown begins</p>
+                  <div class="countdown" data-countdown aria-live="polite">
+                    <div class="countdown__unit">
+                      <span class="countdown__value" data-countdown-days>00</span>
+                      <span class="countdown__label">Days</span>
+                    </div>
+                    <span class="countdown__sep" aria-hidden="true">:</span>
+                    <div class="countdown__unit">
+                      <span class="countdown__value" data-countdown-hours>00</span>
+                      <span class="countdown__label">Hours</span>
+                    </div>
+                    <span class="countdown__sep" aria-hidden="true">:</span>
+                    <div class="countdown__unit">
+                      <span class="countdown__value" data-countdown-minutes>00</span>
+                      <span class="countdown__label">Minutes</span>
+                    </div>
+                    <span class="countdown__sep" aria-hidden="true">:</span>
+                    <div class="countdown__unit">
+                      <span class="countdown__value" data-countdown-seconds>00</span>
+                      <span class="countdown__label">Seconds</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="details__map-wrap" data-no-nav>
+                  <iframe
+                    class="details__map"
+                    data-details-map
+                    title="Kolkata on Google Maps"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="details__view details__view--invite" data-details-view="invite">
+              <div class="invite">
+                <h2 class="invite__heading">Formal Invitation to Follow</h2>
+                <div class="collage" data-collage aria-label="Photo collage"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <button
+      class="nav-scroll nav-scroll--down"
+      type="button"
+      data-scroll-down
+      aria-label="Scroll to next section"
+      hidden
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z" fill="currentColor" />
+      </svg>
+    </button>
+
+    <button
+      class="nav-scroll nav-scroll--up"
+      type="button"
+      data-scroll-up
+      aria-label="Scroll to previous section"
+      hidden
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z" fill="currentColor" />
+      </svg>
+    </button>
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script type="module" src="js/main.js"></script>
