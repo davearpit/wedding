@@ -30,7 +30,6 @@ To preview the after-the-wedding state, add `?now=` with any date:
 ## Publish on GitHub Pages
 1. Push this folder to a GitHub repository.
 2. Repository → **Settings → Pages** → Source: *Deploy from a branch* → `main` / root.
-3. After it goes live, set the `og:image` tag in `index.html` to the full URL
-   (e.g. `https://<user>.github.io/<repo>/assets/img/og-image.jpg`) so WhatsApp shows the preview card.
+3. The site goes live at https://davearpit.github.io/wedding/ (link previews already point there).
 
 The `Section 1–6` folders (about 14 MB of originals) and the original `music.webm` are listed in `.gitignore`, so they stay on your computer.
