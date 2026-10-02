@@ -1,0 +1,8 @@
+.DS_Store
+.claude/
+
+# Original source artwork — the site uses the optimised copies in assets/
+Section */
+
+# Original upload; the site plays assets/audio/song.m4a
+assets/audio/music.webm
