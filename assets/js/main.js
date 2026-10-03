@@ -2,8 +2,8 @@
 (() => {
   'use strict';
 
-  // 5:00 PM IST, 18 January 2027 (IST = UTC+5:30)
-  const WEDDING = Date.UTC(2027, 0, 18, 11, 30, 0);
+  // 5:15 PM IST, 18 January 2027 (IST = UTC+5:30)
+  const WEDDING = Date.UTC(2027, 0, 18, 11, 45, 0);
   const MUSIC_VOLUME = 0.5;
 
   // Preview helper: add ?now=2027-01-20T10:00:00+05:30 to the URL to see a future/past state
@@ -175,7 +175,6 @@
      Countdown → "We're married!"
      ------------------------------------------------------------------ */
   const cd = $('#countdown');
-  const cdCaption = $('#countdownCaption');
   const married = $('#married');
   const nums = {
     d: $('[data-unit="d"]', cd), h: $('[data-unit="h"]', cd),
@@ -203,7 +202,6 @@
   function showMarried() {
     clearInterval(cdTimer);
     cd.hidden = true;
-    cdCaption.hidden = true;
     married.hidden = false;
     married.classList.add('reveal');
     // Day 1 is the wedding day itself

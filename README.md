@@ -8,7 +8,7 @@ assets/css/style.css  styles (colours are CSS variables at the top)
 assets/js/main.js     countdown, music, section snapping, timeline drift
 assets/img/           optimised artwork (WebP)
 assets/video/         intro video (re-encoded, silent)
-assets/audio/         put song.mp3 here
+assets/audio/         song.m4a (the background music)
 Section 1–6/          original source artwork (kept locally, not committed)
 ```
 

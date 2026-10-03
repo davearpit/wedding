@@ -5,14 +5,17 @@
    ========================================================================== */
 
 :root {
-  --ivory: #FBF6EC;
+  --ivory: #FFFFFF;          /* page background: pure white */
   --ivory-deep: #F4EBDA;
-  --card: #FFFCF6;
+  --card: #FFFFFF;
   --ink: #2F3D1C;          /* deep olive, matches the calendar */
   --leaf: #4A7330;
   --lotus: #E58FA6;
   --rose: #B83B60;
   --sindoor: #9C2B2E;      /* calendar hearts */
+  --pink-deep: #A94064;    /* dusty rose pink */
+  --pink: #C9357F;         /* lotus pink: hearts and countdown */
+  --green: #4C8414;        /* leaf green */
   --gold: #946715;
   --gold-light: #E2C27A;
   --line: #D3B57A;
@@ -21,6 +24,10 @@
   --f-body: "Lora", Georgia, serif;
   --f-label: "Jost", "Helvetica Neue", Arial, sans-serif;
   --f-script: "Parisienne", cursive;
+  --f-baskerville: "Libre Baskerville", Baskerville, Georgia, serif;
+  --f-delius: "Delius", "Comic Neue", sans-serif;
+  --f-sacramento: "Sacramento", cursive;
+  --f-josefin: "Josefin Sans", "Helvetica Neue", Arial, sans-serif;
 
   /* Card size: full screen on phones, a 9:16-ish column elsewhere */
   --vh: 100vh;
@@ -142,7 +149,6 @@ p { margin: 0; }
   width: 100%;
   height: auto;
   object-fit: contain;
-  mix-blend-mode: multiply;
   pointer-events: none;
   user-select: none;
 }
@@ -150,19 +156,13 @@ p { margin: 0; }
 .art--bottom { bottom: 0; left: 0; object-position: left bottom; }
 
 /* Ground pieces fill the width and lose their tops softly when space is tight */
-.art--baskets, .art--elephants {
+.art--elephants {
   object-fit: cover;
   object-position: center bottom;
   -webkit-mask-image: linear-gradient(transparent, #000 22%);
           mask-image: linear-gradient(transparent, #000 22%);
 }
 
-/* Gentle breeze for hanging garlands */
-.art--sway { animation: sway 7s ease-in-out infinite alternate; }
-@keyframes sway {
-  from { transform: rotate(-.6deg); }
-  to   { transform: rotate(.6deg); }
-}
 
 /* --------------------------------------------------------------------------
    Shared type
@@ -233,42 +233,43 @@ p { margin: 0; }
   text-align: center;
   color: #FFF8EA;
 }
-.hero__glow {                     /* soft shadow only behind the words */
-  position: absolute; z-index: 1;
-  left: 50%; top: 62.5%;
-  width: 120%; height: 38%;
-  translate: -50% -50%;
-  background: url("../img/hero-glow.webp") center / 100% 100% no-repeat;
+.hero__shade {                    /* even, subtle veil over the whole video so text reads */
+  position: absolute; inset: 0; z-index: 1;
+  background: rgba(0, 0, 0, .3);
   pointer-events: none;
 }
 .hero__date {
-  font-family: var(--f-label);
-  font-weight: 500;
-  font-size: clamp(12px, min(3.7cqi, 1.9cqb), 15px);
-  letter-spacing: .3em;
+  font-family: var(--f-josefin);
+  font-weight: 600;
+  font-size: clamp(15px, min(4.8cqi, 2.5cqb), 19px);
+  letter-spacing: .12em;
   color: #F6DE9C;
   text-shadow: 0 1px 2px rgba(0, 0, 0, .85), 0 0 10px rgba(0, 0, 0, .6);
 }
+.hero__dot { margin: 0 .55em; }
 .hero__names {
   margin: .9cqb 0 0;
-  font-family: var(--f-display);
-  font-weight: 500;
-  font-size: min(10cqi, 5.3cqb);
-  line-height: 1;
-  letter-spacing: .05em;
+  font-family: var(--f-baskerville);
+  font-weight: 700;
+  font-size: min(9.2cqi, 4.9cqb);
+  line-height: 1.05;
+  letter-spacing: .06em;
+  text-transform: uppercase;
   text-shadow: 0 2px 12px rgba(0, 0, 0, .45);
 }
 .hero__names span { display: block; }
 .hero__names .amp {
-  font-size: .78em;
-  line-height: .95;
+  font-family: var(--f-delius);
+  font-weight: 400;
+  font-size: .56em;
+  line-height: 1.35;
   color: var(--gold-light);
 }
 .hero__line {
   margin-top: .6cqb;
-  font-family: var(--f-script);
+  font-family: var(--f-sacramento);
   font-weight: 400;
-  font-size: min(7.6cqi, 4cqb);
+  font-size: min(6.6cqi, 3.5cqb);
   line-height: 1.15;
   letter-spacing: .01em;
   color: #FFF8EA;
@@ -280,19 +281,19 @@ p { margin: 0; }
    -------------------------------------------------------------------------- */
 .date .art--top    { max-height: 31%; }
 .date .art--bottom { max-height: 29%; }
-.date .content { padding-top: 7cqb; }
+.date .content { padding-top: 0; padding-bottom: 7cqb; }
 .calendar {
   width: min(70cqi, 38cqb);
   margin-bottom: 2.6cqb;
 }
 .cal__month {
   margin-bottom: 1.2cqb;
-  font-family: var(--f-display);
-  font-weight: 600;
-  font-size: min(5.6cqi, 3cqb);
+  font-family: var(--f-baskerville);
+  font-weight: 700;
+  font-size: min(5.4cqi, 2.9cqb);
   letter-spacing: .06em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--green);
 }
 .cal__grid {
   display: grid;
@@ -302,13 +303,13 @@ p { margin: 0; }
 .cal__week {
   padding-bottom: .8cqb;
   margin-bottom: .6cqb;
-  border-bottom: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--green);
   font-family: var(--f-label);
   font-weight: 500;
   font-size: clamp(10px, min(2.8cqi, 1.45cqb), 12px);
   letter-spacing: .08em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--green);
 }
 .cal__days span {
   display: grid; place-items: center;
@@ -317,12 +318,12 @@ p { margin: 0; }
   font-weight: 500;
   font-size: min(4cqi, 2.1cqb);
   font-variant-numeric: lining-nums;
-  color: var(--ink);
+  color: var(--green);
 }
 .cal__days .cal__hl {
   font-weight: 600;
-  color: #F6DE9C;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath d='M16 29C6 21 0 15.5 0 8.7 0 3.8 3.8 0 8.6 0 11.6 0 14.4 1.5 16 4 17.6 1.5 20.4 0 23.4 0 28.2 0 32 3.8 32 8.7 32 15.5 26 21 16 29z' fill='%239C2B2E'/%3E%3C/svg%3E") center 55% / min(8.4cqi, 4.5cqb) auto no-repeat;
+  color: #FFFFFF;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath d='M16 29C6 21 0 15.5 0 8.7 0 3.8 3.8 0 8.6 0 11.6 0 14.4 1.5 16 4 17.6 1.5 20.4 0 23.4 0 28.2 0 32 3.8 32 8.7 32 15.5 26 21 16 29z' fill='%23C9357F'/%3E%3C/svg%3E") center 55% / min(8.4cqi, 4.5cqb) auto no-repeat;
 }
 
 .countdown {
@@ -346,29 +347,22 @@ p { margin: 0; }
   transform: translate(-50%, -50%) rotate(45deg);
 }
 .countdown__num {
-  font-family: var(--f-body);
-  font-weight: 500;
+  font-family: var(--f-baskerville);
+  font-weight: 400;
   font-size: min(6.6cqi, 3.5cqb);
   line-height: 1.15;
-  color: var(--sindoor);
+  color: var(--pink);
   font-variant-numeric: tabular-nums lining-nums;
 }
 .countdown__label {
   margin-top: .3cqb;
-  font-family: var(--f-label);
-  font-weight: 500;
+  font-family: var(--f-josefin);
+  font-weight: 600;
   font-size: clamp(10px, min(2.7cqi, 1.4cqb), 11px);
   letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--pink);
 }
-.countdown__caption {
-  margin-top: 1.4cqb;
-  font-family: var(--f-body);
-  font-size: min(3.8cqi, 2cqb);
-  color: var(--ink);
-}
-
 /* After the wedding */
 .married { position: relative; text-align: center; }
 .married__title {
@@ -432,29 +426,31 @@ p { margin: 0; }
   height: 43%;
   object-fit: cover;
   object-position: center top;
-  -webkit-mask-image: linear-gradient(#000 80%, transparent);
-          mask-image: linear-gradient(#000 80%, transparent);
 }
 .content--low { justify-content: flex-end; padding-bottom: max(calc(env(safe-area-inset-bottom) + 9cqb), 9cqb); }
 .invite__lead {
   max-width: 30ch;
   margin-bottom: 2cqb;
-  font-size: min(3.9cqi, 2.05cqb);
-  line-height: 1.55;
+  font-family: var(--f-baskerville);
+  font-size: min(3.6cqi, 1.9cqb);
+  line-height: 1.7;
   color: var(--ink);
 }
 .invite__name {
   margin: 0;
-  font-family: var(--f-display);
-  font-weight: 600;
-  font-size: min(7.6cqi, 4cqb);
-  line-height: 1.1;
-  letter-spacing: .07em;
-  color: var(--gold);
+  font-family: var(--f-baskerville);
+  font-weight: 700;
+  font-size: min(6.6cqi, 3.5cqb);
+  line-height: 1.15;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--green);
 }
 .invite__parents {
   margin-top: .5cqb;
-  font-size: min(3.85cqi, 2cqb);
+  white-space: nowrap;
+  font-family: var(--f-baskerville);
+  font-size: min(3.25cqi, 1.75cqb);
   line-height: 1.45;
   color: var(--ink);
 }
@@ -473,66 +469,92 @@ p { margin: 0; }
   margin-top: 2.4cqb;
   padding-top: 1.6cqb;
   border-top: 1px solid var(--line);
-  font-size: min(3.85cqi, 2cqb);
+  font-family: var(--f-baskerville);
+  font-size: min(3.45cqi, 1.85cqb);
   line-height: 1.6;
   color: var(--ink);
 }
-.invite__day { display: block; }
-.invite__when strong { font-weight: 600; color: var(--sindoor); }
+.invite__day {
+  display: block;
+  margin-bottom: .4cqb;
+  font-family: var(--f-josefin);
+  font-weight: 600;
+  font-size: clamp(10px, min(2.9cqi, 1.5cqb), 12px);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.invite__time { margin-bottom: .6cqb; color: var(--pink-deep); }
+.invite__when strong { font-weight: 700; color: var(--pink-deep); }
 
 /* --------------------------------------------------------------------------
    4 · Events
    -------------------------------------------------------------------------- */
-.events .art--top    { max-height: 18%; object-position: center top; }
-.events .art--bottom { height: 22%; }
-.events .content { padding-top: 15cqb; padding-bottom: 21cqb; }
-.events .title { margin-bottom: 2cqb; }
+.events .art--top    { width: 100%; height: auto; }   /* garland runs edge to edge */
+.events .art--bottom { width: 100%; height: auto; }   /* whole basket scene, no crop, no fade */
+/* the scene is 72cqi tall; its centre is empty down to 54%, so text may end above the baskets */
+.events .content { justify-content: flex-start; padding-top: calc(45.7cqi + 3.4cqb); padding-bottom: calc(72cqi * .46 + 1.5cqb); }
+.events__title {
+  margin: 0 -6cqi;                      /* headings may run a little wider than body text, so it stays on one line */
+  font-family: var(--f-baskerville);
+  font-weight: 700;
+  font-size: min(4.6cqi, 2.4cqb);      /* same as the event names */
+  line-height: 1.25;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--green);
+}
+.events__date {                         /* matches the date line in Section 3 */
+  margin: .6cqb 0 2.2cqb;
+  font-family: var(--f-josefin);
+  font-weight: 600;
+  font-size: clamp(10px, min(2.9cqi, 1.5cqb), 12px);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--pink);
+}
 
 .event {
   width: 100%;
   max-width: 300px;
 }
+/* where a leaf passes behind a letter (short screens), a tight white glow keeps the word readable */
+.events .content { text-shadow: 0 0 3px #fff, 0 0 6px #fff, 0 0 10px #fff; }
 .events__divider {
   display: flex; align-items: center; justify-content: center; gap: 10px;
   margin: 2.2cqb 0;
 }
-.events__divider span { width: 46px; height: 1px; background: var(--line); }
-.events__divider i { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+.events__divider span { width: 46px; height: 1px; background: var(--pink); }
+.events__divider i { width: 6px; height: 6px; background: var(--pink); transform: rotate(45deg); }
 .event__name {
   margin: 0;
-  font-family: var(--f-display);
-  font-weight: 600;
+  font-family: var(--f-baskerville);
+  font-weight: 700;
   font-size: min(4.6cqi, 2.4cqb);
   line-height: 1.25;
   letter-spacing: .03em;
-  color: var(--ink);
+  color: var(--green);
 }
 .event__meta {
   margin-top: .6cqb;
-  font-family: var(--f-label);
-  font-weight: 500;
+  font-family: var(--f-josefin);
+  font-weight: 600;
   font-size: clamp(11px, min(2.9cqi, 1.5cqb), 12px);
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--pink);
 }
 .event__meta span { margin: 0 .3em; }
-.event__desc {
-  margin: .7cqb auto 1.2cqb;
-  max-width: 30ch;
-  font-size: clamp(12px, min(3.3cqi, 1.75cqb), 13.5px);
-  line-height: 1.45;
-  color: var(--ink);
-}
+.event__meta + .dresscode { margin-top: 1.4cqb; }   /* space between time/venue and the attire swatches */
 
 .dresscode {
   margin-bottom: .8cqb;
-  font-family: var(--f-label);
-  font-weight: 500;
+  font-family: var(--f-josefin);
+  font-weight: 600;
   font-size: 10px;
   letter-spacing: .24em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--pink);
 }
 .swatches {
   display: flex; justify-content: center; gap: 10px;
@@ -543,9 +565,12 @@ p { margin: 0; }
   width: var(--size); height: var(--size);
   border-radius: 50%;
   background: var(--c);
-  box-shadow: 0 0 0 1.5px #fff, 0 0 0 2.5px var(--line);
 }
-.swatches li.swatch--silver { background: #BFC3C9; }
+.swatches li.swatch--white { box-shadow: inset 0 0 0 1px #DDD3C2; }   /* hairline so white shows on the white page */
+
+/* Glitz & glam: rainbow and silver-gold sequins, the rest plain */
+.swatches--glam .swatch--rainbow    { background: url("../img/glitter-rainbow.webp") center / cover no-repeat; }
+.swatches--glam .swatch--silvergold { background: url("../img/glitter-silvergold.webp") center / cover no-repeat; }   /* half silver, half gold sequins */
 
 /* --------------------------------------------------------------------------
    5 · Story
@@ -555,7 +580,6 @@ p { margin: 0; }
   width: 72%;
   max-height: 38%;
   object-position: right bottom;
-  mix-blend-mode: normal;
 }
 .content--story { padding-left: 0; padding-right: 0; padding-top: 4cqb; padding-bottom: 35cqb; }
 .content--story .eyebrow,
@@ -732,7 +756,7 @@ p { margin: 0; }
   padding: 0;
   border-radius: 50%;
   border: 1px solid var(--line);
-  background: rgba(251, 246, 236, .78);
+  background: rgba(255, 255, 255, .82);
   -webkit-backdrop-filter: blur(6px);
           backdrop-filter: blur(6px);
   color: var(--ink);
@@ -747,7 +771,7 @@ p { margin: 0; }
 
 .sound {
   position: absolute; z-index: 20;
-  left: 14px; bottom: max(calc(env(safe-area-inset-bottom) + 14px), 14px);
+  left: 10px; bottom: max(calc(env(safe-area-inset-bottom) + 12px), 12px);
 }
 .sound__on path:first-child, .sound__off path:first-child { fill: currentColor; }
 .sound__off { display: none; }
@@ -756,7 +780,7 @@ p { margin: 0; }
 
 .pager {
   position: absolute; z-index: 20;
-  right: 14px; bottom: max(calc(env(safe-area-inset-bottom) + 14px), 14px);
+  right: 10px; bottom: max(calc(env(safe-area-inset-bottom) + 12px), 12px);
   display: flex; flex-direction: column; gap: 8px;
 }
 .pager .ctrl:disabled { visibility: hidden; }
