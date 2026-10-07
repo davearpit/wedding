@@ -5,11 +5,12 @@ A single-page, mobile-first invitation. Plain HTML/CSS/JS — no build step.
 ```
 index.html            all text lives here
 assets/css/style.css  styles (colours are CSS variables at the top)
-assets/js/main.js     countdown, music, section snapping, timeline drift
-assets/img/           optimised artwork (WebP)
+assets/js/main.js     countdown, music, section snapping, photo slideshow, map link
+assets/img/           optimised artwork and photos (WebP)
+assets/img/story/     the Section 5 slideshow photos (square, 1080px max)
 assets/video/         intro video (re-encoded, silent)
-assets/audio/         song.m4a (the background music)
-Section 1–6/          original source artwork (kept locally, not committed)
+assets/audio/         song.m4a — "Tumhi Dekho Naa" (the background music)
+backup/               original uploads and unused files (kept locally, never committed)
 ```
 
 ## Add the song
@@ -32,4 +33,4 @@ To preview the after-the-wedding state, add `?now=` with any date:
 2. Repository → **Settings → Pages** → Source: *Deploy from a branch* → `main` / root.
 3. The site goes live at https://davearpit.github.io/wedding/ (link previews already point there).
 
-The `Section 1–6` folders (about 14 MB of originals) and the original `music.webm` are listed in `.gitignore`, so they stay on your computer.
+Originals (photos, map, timeline art, the MP3, the generated video) and unused files live in `backup/`, which is in `.gitignore` — they stay on your computer and are never uploaded.

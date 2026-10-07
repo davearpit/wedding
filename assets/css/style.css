@@ -493,11 +493,11 @@ p { margin: 0; }
 .events .art--bottom { width: 100%; height: auto; }   /* whole basket scene, no crop, no fade */
 /* the scene is 72cqi tall; its centre is empty down to 54%, so text may end above the baskets */
 .events .content { justify-content: flex-start; padding-top: calc(45.7cqi + 3.4cqb); padding-bottom: calc(72cqi * .46 + 1.5cqb); }
-.events__title {
+.section-heading {
   margin: 0 -6cqi;                      /* headings may run a little wider than body text, so it stays on one line */
   font-family: var(--f-baskerville);
   font-weight: 700;
-  font-size: min(4.6cqi, 2.4cqb);      /* same as the event names */
+  font-size: min(4.6cqi, 2.4cqb);      /* same as the Section 4 event names */
   line-height: 1.25;
   letter-spacing: .04em;
   text-transform: uppercase;
@@ -573,139 +573,150 @@ p { margin: 0; }
 .swatches--glam .swatch--silvergold { background: url("../img/glitter-silvergold.webp") center / cover no-repeat; }   /* half silver, half gold sequins */
 
 /* --------------------------------------------------------------------------
-   5 · Story
+   5 · Story — heading, illustrated journey, square photo slideshow
    -------------------------------------------------------------------------- */
-.story .art--decor {
-  right: -6%; bottom: -2%;
-  width: 72%;
-  max-height: 38%;
-  object-position: right bottom;
+.story {
+  /* journey (1 : 1.116) and slideshow (square) share one width and always fit one screen together */
+  --sq: min(78cqi, calc((100cqb - 34cqb) / 2.116));
 }
-.content--story { padding-left: 0; padding-right: 0; padding-top: 4cqb; padding-bottom: 35cqb; }
-.content--story .eyebrow,
-.content--story .title,
-.story__line { padding: 0 10cqi; }
-.story__line {
-  margin-bottom: 3cqb;
-  font-size: min(3.95cqi, 2.05cqb);
-  line-height: 1.55;
-  color: var(--ink);
-}
+.content--story { padding-top: 3cqb; padding-bottom: 9cqb; gap: 2.2cqb; }
+.content--story .section-heading { margin-bottom: 0; }
 
-.timeline {
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  cursor: grab;
-  outline: none;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-}
-.timeline::-webkit-scrollbar { display: none; }
-.timeline.is-dragging { cursor: grabbing; }
-.timeline:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
-.timeline img {
-  height: min(30cqb, 64cqi);
-  width: auto;
-  max-width: none;
-  padding: 0 6cqi;
-  box-sizing: content-box;
+.journey { display: block; width: var(--sq); height: auto; margin-bottom: 2.6cqb; }   /* extra space before the photos */
+
+.slideshow {
+  position: relative;
+  width: var(--sq); height: var(--sq);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #F4F1EC;
+  box-shadow: 0 10px 24px -14px rgba(47, 61, 28, .45);
+  touch-action: pan-y;                /* vertical swipes still move the page */
+  cursor: pointer;
   user-select: none;
+}
+.slideshow__slide {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity .9s ease;
   -webkit-user-drag: none;
 }
-.timeline__hint {
-  display: flex; align-items: center; gap: 8px;
-  margin-top: 1.2cqb;
-  font-family: var(--f-label);
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: .24em;
-  text-transform: uppercase;
-  color: var(--gold);
+.slideshow__slide.is-current { opacity: 1; }
+.slideshow__dots {
+  position: absolute; left: 0; right: 0; bottom: 8px;
+  display: flex; justify-content: center; gap: 2px;
 }
-.timeline__hint svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.slideshow__dots button {
+  width: 14px; height: 18px;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  display: grid; place-items: center;
+}
+.slideshow__dots button::before {
+  content: "";
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .6);
+  box-shadow: 0 0 2px rgba(0, 0, 0, .5);
+  transition: transform .3s ease, background-color .3s ease;
+}
+.slideshow__dots button[aria-current="true"]::before { background: #fff; transform: scale(1.4); }
+.slideshow__dots button:focus-visible { outline: 2px solid #fff; outline-offset: -2px; border-radius: 4px; }
 
 /* --------------------------------------------------------------------------
    6 · Closing
    -------------------------------------------------------------------------- */
 .closing .art--top    { max-height: 25%; }
 .closing .art--bottom { height: 23%; }
-.closing .content { padding-top: 12cqb; padding-bottom: 20cqb; }
-.closing .eyebrow, .closing__title, .closing__msg, .signoff {
+.closing .content { justify-content: center; padding-top: 12cqb; padding-bottom: 23cqb; }
+.closing__msg, .signoff {
   text-shadow: 0 0 6px var(--ivory), 0 0 14px var(--ivory), 0 0 22px var(--ivory);
 }
-.closing__title { color: var(--sindoor); margin-bottom: 1.4cqb; }
 .closing__msg {
-  max-width: 30ch;
+  max-width: min(27ch, 68cqi);   /* keeps lines clear of the hanging garland */
   margin-bottom: 2.6cqb;
-  font-size: min(3.95cqi, 2.05cqb);
-  line-height: 1.55;
+  font-family: var(--f-baskerville);
+  font-size: min(3.6cqi, 1.9cqb);
+  line-height: 1.65;
   color: var(--ink);
 }
 
-.map {
-  display: block;
-  width: 100%;
-  max-width: 360px;
+/* Venue card: same size and finish as the Section 5 slideshow */
+.closing { --sq: min(78cqi, calc((100cqb - 34cqb) / 2.116)); }
+.venue {
+  display: flex; flex-direction: column;
+  width: var(--sq); height: var(--sq);
+  border-radius: 14px;
   overflow: hidden;
-  border-radius: 16px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  box-shadow: 0 10px 28px -16px rgba(47, 61, 28, .5);
+  background: #fff;
+  box-shadow: 0 10px 24px -14px rgba(47, 61, 28, .45);
   text-decoration: none;
   color: inherit;
 }
-.map__frame {
-  display: block;
-  width: 100%;
-  height: min(18cqb, 42cqi);
-  border: 0;
-  pointer-events: none;           /* keep vertical swipes for the page; tap opens Google Maps */
-}
-.map__bar {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 1.2cqb 4.5cqi;
+.venue__photo { flex: 1; min-height: 0; width: 100%; object-fit: cover; }
+.venue__panel {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 8px; row-gap: .5cqb;
+  padding: 1.3cqb 4cqi 1.5cqb;
   text-align: left;
+  text-shadow: none;
+  container-type: inline-size;
 }
-.map__place strong {
-  display: block;
-  font-family: var(--f-display);
+.venue__place { display: contents; }
+.venue__place strong {
+  grid-column: 1 / -1;
+  font-family: var(--f-baskerville);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--green);
+}
+.venue__place small {
+  grid-column: 1;
+  font-family: var(--f-josefin);
   font-weight: 600;
-  font-size: min(3.6cqi, 1.9cqb);
-  color: var(--ink);
-}
-.map__place small {
-  font-family: var(--f-body);
-  font-size: clamp(12px, min(3.3cqi, 1.75cqb), 14px);
-  color: var(--ink);
-}
-.map__cta {
-  flex: none;
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 13px;
-  border-radius: 999px;
-  background: var(--leaf);
-  color: #FFFCF6;
-  font-family: var(--f-label);
-  font-weight: 500;
-  font-size: 11px;
-  letter-spacing: .12em;
+  font-size: 10.5px;
+  letter-spacing: .03em;
   text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--pink);
 }
-.map__cta svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.map:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.venue__cta {
+  grid-column: 2; grid-row: 2;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: var(--pink);
+  color: #fff;
+  font-family: var(--f-josefin);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.venue__cta svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+@container (max-width: 190px) {          /* smallest phones: arrow-only button so the date keeps its room */
+  .venue__place strong { font-size: 13px; }
+  .venue__cta { padding: 6px 7px; }
+  .venue__cta-text { display: none; }
+}
+.venue:focus-visible { outline: 2px solid var(--pink); outline-offset: 4px; }
 
-.signoff {
-  margin-top: 2.2cqb;
-  font-family: var(--f-display);
-  font-weight: 500;
+.signoff {                              /* matches the couple's names in Sections 1 and 3 */
+  margin-top: 2.6cqb;
+  font-family: var(--f-baskerville);
+  font-weight: 700;
   font-size: min(4.6cqi, 2.4cqb);
-  letter-spacing: .08em;
-  color: var(--ink);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--green);
 }
-.signoff .amp { font-size: 1.3em; }
+.signoff .amp { font-family: var(--f-baskerville); font-weight: 700; color: var(--pink); }
 
 /* Falling petals */
 .petals { position: absolute; inset: 0; z-index: 15; pointer-events: none; overflow: hidden; }

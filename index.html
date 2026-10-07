@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Delius&family=Josefin+Sans:wght@400;600&family=Jost:wght@500&family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;500;600&family=Parisienne&family=Sacramento&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/img/intro-poster.jpg">
-  <link rel="stylesheet" href="assets/css/style.css?v=2026-10-05l">
+  <link rel="stylesheet" href="assets/css/style.css?v=2026-10-07j">
 </head>
 <body>
 
@@ -106,7 +106,7 @@
         <img class="art art--top" src="assets/img/s4-top.webp" alt="" width="1006" height="460">
         <img class="art art--bottom art--baskets" src="assets/img/s4-bottom.webp" alt="" width="1060" height="764">
         <div class="content">
-          <h2 class="events__title reveal">Where Celebrations Begin</h2>
+          <h2 class="section-heading events__title reveal">Where Celebrations Begin</h2>
           <p class="events__date reveal">Sunday, 17 January 2027</p>
 
           <article class="event reveal">
@@ -139,41 +139,43 @@
 
       <!-- 5 · Our story -->
       <section class="section paper story" id="story" aria-label="Our story">
-        <img class="art art--decor" src="assets/img/story-decor.webp" alt="" width="900" height="825" loading="lazy">
         <div class="content content--story">
-          <p class="eyebrow reveal">Our Story</p>
-          <h2 class="title reveal">Five cities, one us</h2>
-          <p class="story__line reveal">Every flight, every new city, every detour along the way — it all led us right here.</p>
+          <h2 class="section-heading reveal">Our Story</h2>
 
-          <div class="timeline reveal" id="timeline" tabindex="0" aria-label="Our journey: Delhi and NCR, Bath England, Hyderabad, Vermont and San Francisco, and now Kolkata">
-            <img src="assets/img/timeline.webp" alt="Illustrated journey from Delhi and NCR to Bath, England, Hyderabad, Vermont and SF, USA, and now Kolkata" width="1370" height="340" loading="lazy" draggable="false">
+          <img class="journey reveal" src="assets/img/journey.webp" width="1000" height="1116" loading="lazy" decoding="async"
+               alt="Our journey: Delhi and NCR, Bath in England, Hyderabad, Vermont and San Francisco in the USA, and now Kolkata">
+
+          <div class="slideshow reveal" id="slideshow" role="region" aria-roledescription="carousel" aria-label="Photos of Senjuti and Arpit">
+            <img class="slideshow__slide is-current" src="assets/img/story/01.webp" alt="Senjuti and Arpit, photo 1 of 9" width="1080" height="1080" decoding="async" draggable="false">
+            <img class="slideshow__slide" data-src="assets/img/story/02.webp" alt="Senjuti and Arpit, photo 2 of 9" width="1080" height="1080" decoding="async" draggable="false">
+            <img class="slideshow__slide" data-src="assets/img/story/03.webp" alt="Senjuti and Arpit, photo 3 of 9" width="1080" height="1080" decoding="async" draggable="false">
+            <img class="slideshow__slide" data-src="assets/img/story/04.webp" alt="Senjuti and Arpit, photo 4 of 9" width="1080" height="1080" decoding="async" draggable="false">
+            <img class="slideshow__slide" data-src="assets/img/story/05.webp" alt="Senjuti and Arpit, photo 5 of 9" width="1080" height="1080" decoding="async" draggable="false">
+            <img class="slideshow__slide" data-src="assets/img/story/06.webp" alt="Senjuti and Arpit, photo 6 of 9" width="1080" height="1080" decoding="async" draggable="false">
+            <img class="slideshow__slide" data-src="assets/img/story/07.webp" alt="Senjuti and Arpit, photo 7 of 9" width="1080" height="1080" decoding="async" draggable="false">
+            <img class="slideshow__slide" data-src="assets/img/story/08.webp" alt="Senjuti and Arpit, photo 8 of 9" width="1080" height="1080" decoding="async" draggable="false">
+            <img class="slideshow__slide" data-src="assets/img/story/09.webp" alt="Senjuti and Arpit, photo 9 of 9" width="1080" height="1080" decoding="async" draggable="false">
+            <div class="slideshow__dots" id="slideDots"></div>
           </div>
-          <p class="timeline__hint reveal" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M8 12h12M16 8l4 4-4 4M4 12h1"/></svg> swipe through our journey
-          </p>
         </div>
       </section>
 
       <!-- 6 · Closing + venue -->
-      <section class="section paper closing" id="venue" aria-label="See you there">
+      <section class="section paper closing" id="venue" aria-label="Venue">
         <img class="art art--top" src="assets/img/s6-top.webp" alt="" width="1060" height="800">
         <img class="art art--bottom art--elephants" src="assets/img/s6-bottom.webp" alt="" width="1060" height="784">
         <div class="content">
-          <p class="eyebrow reveal">With love &amp; blessings</p>
-          <h2 class="title closing__title reveal">See you there</h2>
           <p class="closing__msg reveal">
-            Two families, one turmeric-bright afternoon, one night of music,
-            and a vow at sunset. Come bless us, dance with us,
-            and be part of our forever.
+            We would be delighted to have you with us as we celebrate these two days of love, laughter,
+            and tradition. Your presence and blessings would make the beginning of our new journey even more special.
           </p>
 
-          <a class="map reveal" href="https://maps.app.goo.gl/ZiHNTMsZSQDxUcC1A" target="_blank" rel="noopener">
-            <iframe class="map__frame" title="Map showing Banabithi Resort" loading="lazy" tabindex="-1"
-                    src="https://www.google.com/maps?q=Banabithi+Resort&amp;ll=22.4891164,88.6096105&amp;z=14&amp;output=embed"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-            <span class="map__bar">
-              <span class="map__place"><strong>Banabithi Resort</strong><small>17 &amp; 18 January 2027</small></span>
-              <span class="map__cta">Directions
+          <a class="venue reveal" id="venueLink" href="https://maps.app.goo.gl/ZiHNTMsZSQDxUcC1A" target="_blank" rel="noopener"
+             aria-label="Get directions to Banabithi Resort, 17 and 18 January 2027">
+            <img class="venue__photo" src="assets/img/venue-map.webp" alt="" width="1080" height="810" loading="lazy" decoding="async">
+            <span class="venue__panel">
+              <span class="venue__place"><strong>Banabithi Resort</strong><small>17 &amp; 18 Jan 2027</small></span>
+              <span class="venue__cta"><span class="venue__cta-text">Directions</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
               </span>
             </span>
@@ -204,8 +206,8 @@
       </button>
     </div>
 
-    <!-- Song: assets/audio/song.m4a (AAC plays on every browser, including older iPhones) -->
-    <audio id="song" src="assets/audio/song.m4a" loop preload="metadata"></audio>
+    <!-- Song: "Tumhi Dekho Naa", as assets/audio/song.m4a (AAC plays on every browser, including older iPhones) -->
+    <audio id="song" src="assets/audio/song.m4a?v=tumhi-dekho-naa" loop preload="metadata"></audio>
   </div>
 
   <div class="rotate-note">
@@ -213,6 +215,6 @@
     <p>Please turn your phone upright<br>to view the invitation</p>
   </div>
 
-  <script src="assets/js/main.js?v=2026-10-05l"></script>
+  <script src="assets/js/main.js?v=2026-10-07j"></script>
 </body>
 </html>

@@ -60,7 +60,7 @@
 
   // Keyboard: one section per key press
   document.addEventListener('keydown', e => {
-    if (e.target.closest && e.target.closest('button, a, #timeline')) return;
+    if (e.target.closest && e.target.closest('button, a')) return;
     if (['ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); goTo(activeIndex + 1); }
     if (['ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); goTo(activeIndex - 1); }
   });
@@ -69,7 +69,7 @@
   // A gesture ends once the wheel has been quiet for a moment (trackpads keep firing during inertia)
   let lastJump = 0, lastWheel = 0;
   scroller.addEventListener('wheel', e => {
-    if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;       // horizontal (timeline) — leave it
+    if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;       // horizontal gestures — leave them
     e.preventDefault();
     const t = performance.now();
     const gestureOver = t - lastWheel > 200 && t - lastJump > 700;
@@ -222,57 +222,55 @@
   cdTimer = setInterval(tick, 1000);
 
   /* ------------------------------------------------------------------
-     Story timeline: drifts on its own, hands control over on touch
+     Story slideshow: one photo at a time, loaded only when needed
      ------------------------------------------------------------------ */
-  const tl = $('#timeline');
-  const SPEED = 28;            // px per second
-  const PAUSE_AT_END = 2200;   // ms
-  let tlDir = 1, tlPos = 0, tlLast = 0, tlHoldUntil = 0, tlRaf = 0, tlActive = false;
+  const show = $('#slideshow');
+  const slides = [...show.querySelectorAll('.slideshow__slide')];
+  const dotsWrap = $('#slideDots');
+  const SLIDE_MS = 4000;
+  let cur = 0, slideTimer = 0;
 
-  function tlStep(t) {
-    tlRaf = requestAnimationFrame(tlStep);
-    const dt = tlLast ? Math.min(64, t - tlLast) : 16;
-    tlLast = t;
-    const max = tl.scrollWidth - tl.clientWidth;
-    if (tlTouched) { tlStop(); return; }
-    if (max <= 0 || t < tlHoldUntil) { tlPos = tl.scrollLeft; return; }
-    tlPos += tlDir * SPEED * dt / 1000;
-    if (tlPos >= max) { tlPos = max; tlDir = -1; tlHoldUntil = t + PAUSE_AT_END; }
-    if (tlPos <= 0)   { tlPos = 0;   tlDir = 1;  tlHoldUntil = t + PAUSE_AT_END; }
-    tl.scrollLeft = tlPos;
+  const load = i => { const img = slides[i % slides.length]; if (img.dataset.src) { img.src = img.dataset.src; delete img.dataset.src; } };
+  const slideDots = slides.map((_, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', `Photo ${i + 1} of ${slides.length}`);
+    b.addEventListener('click', e => { e.stopPropagation(); goSlide(i); restart(); });
+    dotsWrap.appendChild(b);
+    return b;
+  });
+  function goSlide(i) {
+    cur = (i + slides.length) % slides.length;
+    load(cur); load(cur + 1);                    // fetch the next one in the background
+    slides.forEach((s, k) => s.classList.toggle('is-current', k === cur));
+    slideDots.forEach((d, k) => d.setAttribute('aria-current', String(k === cur)));
   }
-  function tlStart() {
-    if (reducedMotion || tlActive || tlTouched) return;
-    tlActive = true; tlLast = 0; tlPos = tl.scrollLeft;
-    tlHoldUntil = performance.now() + 900;      // let the section settle first
-    tlRaf = requestAnimationFrame(tlStep);
+  function restart() {
+    clearInterval(slideTimer);
+    if (!reducedMotion && activeIndex === sections.indexOf($('#story'))) slideTimer = setInterval(() => goSlide(cur + 1), SLIDE_MS);
   }
-  function tlStop() { tlActive = false; cancelAnimationFrame(tlRaf); }
-  let tlTouched = false;
-  const tlUser = () => { tlTouched = true; };
-  ['pointerdown', 'touchstart', 'wheel', 'keydown'].forEach(ev => tl.addEventListener(ev, tlUser, { passive: true }));
-  tl.addEventListener('touchend', tlUser, { passive: true });
+  goSlide(0);
 
-  // Mouse drag for desktop
-  let drag = null;
-  tl.addEventListener('pointerdown', e => {
-    if (e.pointerType !== 'mouse') return;
-    drag = { x: e.clientX, left: tl.scrollLeft };
-    tl.classList.add('is-dragging');
-    tl.setPointerCapture(e.pointerId);
+  // Tap right half = next, left half = previous; horizontal swipe also works
+  let sx = null;
+  show.addEventListener('pointerdown', e => { sx = e.target.closest('.slideshow__dots') ? null : e.clientX; });
+  show.addEventListener('pointerup', e => {
+    if (sx === null) return;
+    const dx = e.clientX - sx; sx = null;
+    if (Math.abs(dx) > 30) goSlide(cur + (dx < 0 ? 1 : -1));
+    else { const r = show.getBoundingClientRect(); goSlide(cur + (e.clientX > r.left + r.width / 2 ? 1 : -1)); }
+    restart();
   });
-  tl.addEventListener('pointermove', e => {
-    if (!drag) return;
-    tl.scrollLeft = drag.left - (e.clientX - drag.x);
-    tlUser();
-  });
-  const endDrag = () => { drag = null; tl.classList.remove('is-dragging'); };
-  tl.addEventListener('pointerup', endDrag);
-  tl.addEventListener('pointercancel', endDrag);
-  tl.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') tl.scrollBy({ left: 120, behavior: 'smooth' });
-    if (e.key === 'ArrowLeft')  tl.scrollBy({ left: -120, behavior: 'smooth' });
-  });
+  show.addEventListener('pointercancel', () => { sx = null; });
+
+  /* ------------------------------------------------------------------
+     Venue card: Apple Maps on iPhone / iPad, Google Maps everywhere else
+     ------------------------------------------------------------------ */
+  const isAppleTouch = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);   // iPadOS reports as Mac
+  if (isAppleTouch) {
+    $('#venueLink').href = 'https://maps.apple.com/?q=Banabithi%20Resort&ll=22.4891164,88.6096105';
+  }
 
   /* ------------------------------------------------------------------
      Petals for the closing page
@@ -292,6 +290,6 @@
   }
 
   function onSectionChange(sec) {
-    if (sec.id === 'story') tlStart(); else tlStop();
+    if (sec.id === 'story') { load(1); restart(); } else clearInterval(slideTimer);
   }
 })();

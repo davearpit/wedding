@@ -1,8 +1,15 @@
+# macOS / editor clutter
 .DS_Store
 .claude/
 
-# Original source artwork — the site uses the optimised copies in assets/
-Section */
+# Backups and original uploads — kept on this computer, never published.
+# The site uses the optimised copies in assets/.
+/backup/
 
-# Original upload; the site plays assets/audio/song.m4a
-assets/audio/music.webm
+# Safety net: large originals dropped into the top-level folder by mistake
+/*.png
+/*.jpg
+/*.jpeg
+/*.mp3
+/*.mp4
+/*.webm
