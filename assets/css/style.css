@@ -12,7 +12,6 @@
   --leaf: #4A7330;
   --lotus: #E58FA6;
   --rose: #B83B60;
-  --sindoor: #9C2B2E;      /* calendar hearts */
   --pink-deep: #A94064;    /* dusty rose pink */
   --pink: #C9357F;         /* lotus pink: hearts and countdown */
   --green: #4C8414;        /* leaf green */
@@ -23,7 +22,6 @@
   --f-display: "Cinzel", "Times New Roman", serif;
   --f-body: "Lora", Georgia, serif;
   --f-label: "Jost", "Helvetica Neue", Arial, sans-serif;
-  --f-script: "Parisienne", cursive;
   --f-baskerville: "Libre Baskerville", Baskerville, Georgia, serif;
   --f-delius: "Delius", "Comic Neue", sans-serif;
   --f-sacramento: "Sacramento", cursive;
@@ -155,40 +153,12 @@ p { margin: 0; }
 .art--top    { top: 0; right: 0; object-position: right top; transform-origin: top right; }
 .art--bottom { bottom: 0; left: 0; object-position: left bottom; }
 
-/* Ground pieces fill the width and lose their tops softly when space is tight */
-.art--elephants {
-  object-fit: cover;
-  object-position: center bottom;
-  -webkit-mask-image: linear-gradient(transparent, #000 22%);
-          mask-image: linear-gradient(transparent, #000 22%);
-}
 
 
 /* --------------------------------------------------------------------------
    Shared type
    -------------------------------------------------------------------------- */
-.eyebrow {
-  margin-bottom: 1.2cqb;
-  font-family: var(--f-label);
-  font-weight: 500;
-  font-size: clamp(11px, min(3cqi, 1.55cqb), 13px);
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.title {
-  margin: 0 0 2cqb;
-  font-family: var(--f-display);
-  font-weight: 500;
-  font-size: min(6.4cqi, 3.4cqb);
-  line-height: 1.15;
-  letter-spacing: .04em;
-  color: var(--ink);
-}
-
 .amp {
-  font-family: var(--f-script);
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
@@ -366,40 +336,42 @@ p { margin: 0; }
 /* After the wedding */
 .married { position: relative; text-align: center; }
 .married__title {
-  font-family: var(--f-script);
-  font-size: min(12.5cqi, 6.6cqb);
-  line-height: 1.15;
-  color: var(--sindoor);
-  animation: glow 3s ease-in-out infinite;
+  font-family: var(--f-baskerville);
+  font-weight: 700;
+  font-size: min(7.4cqi, 3.9cqb);
+  line-height: 1.2;
+  letter-spacing: .03em;
+  color: var(--green);
 }
 .married__sub {
-  margin: .4cqb 0 1.6cqb;
-  font-family: var(--f-label);
-  font-weight: 500;
-  font-size: clamp(11px, min(2.9cqi, 1.5cqb), 12px);
-  letter-spacing: .2em;
+  margin: .8cqb 0 1.8cqb;
+  font-family: var(--f-josefin);
+  font-weight: 600;
+  font-size: clamp(10px, min(2.7cqi, 1.4cqb), 11px);
+  letter-spacing: .16em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--pink);
 }
 .married__count {
   display: inline-flex; align-items: baseline; gap: .45em;
   padding: .8cqb 5cqi;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  font-family: var(--f-body);
-  font-size: min(4cqi, 2.1cqb);
-  color: var(--ink);
+  font-family: var(--f-baskerville);
+  font-size: min(3.8cqi, 2cqb);
+  color: var(--green);
 }
 .married__count strong {
-  font-weight: 500;
-  font-size: 1.4em;
-  color: var(--sindoor);
+  font-weight: 400;
+  font-size: 1.5em;
+  color: var(--pink);
+  font-variant-numeric: lining-nums;
 }
 .married__hearts { position: absolute; inset: -40% -10%; pointer-events: none; }
 .married__hearts i {
   position: absolute; bottom: 0;
   width: 12px; height: 12px;
-  background: var(--sindoor);
+  background: var(--pink);
   transform: rotate(45deg);
   opacity: 0;
   animation: rise 5s ease-in infinite;
@@ -417,7 +389,6 @@ p { margin: 0; }
   15%  { opacity: .7; }
   100% { opacity: 0; transform: translateY(-160px) rotate(45deg) scale(1); }
 }
-@keyframes glow { 50% { text-shadow: 0 0 22px rgba(229, 143, 166, .55); } }
 
 /* --------------------------------------------------------------------------
    3 · Invitation
@@ -576,11 +547,29 @@ p { margin: 0; }
    5 · Story — heading, illustrated journey, square photo slideshow
    -------------------------------------------------------------------------- */
 .story {
-  /* journey (1 : 1.116) and slideshow (square) share one width and always fit one screen together */
-  --sq: min(78cqi, calc((100cqb - 34cqb) / 2.116));
+  --lead-size: min(3.6cqi, 1.9cqb);       /* same as "With great pride and joy…" in Section 3 */
+  /* journey (1 : 1.116) and slideshow (square) share one width; the three-line lead, the gaps
+     and a band at the bottom for the butterfly are reserved first */
+  --sq: min(76cqi, calc((100cqb - 3 * 1.7 * var(--lead-size) - 23.2cqb - 17.4cqi) / 2.116));   /* 17.4cqi = butterfly height */
 }
-.content--story { padding-top: 3cqb; padding-bottom: 9cqb; gap: 2.2cqb; }
-.content--story .section-heading { margin-bottom: 0; }
+.content--story { justify-content: flex-start; padding-top: 8.7cqb; padding-bottom: 0; gap: 2.2cqb; }
+.story__lead {
+  max-width: 76cqi;
+  margin: 0 0 3.5cqb;                      /* extra breathing room before the timeline */
+  text-wrap: balance;
+  font-family: var(--f-baskerville);
+  font-size: var(--lead-size);
+  line-height: 1.7;
+  color: var(--ink);
+}
+/* butterfly in the bottom-left corner, just right of the music button, flying inward */
+.story__butterfly {
+  position: absolute; z-index: 1;
+  left: 62px; bottom: max(calc(env(safe-area-inset-bottom) + 10px), 10px);
+  width: 17cqi; height: auto;
+  transform: scaleX(-1);
+  pointer-events: none;
+}
 
 .journey { display: block; width: var(--sq); height: auto; margin-bottom: 2.6cqb; }   /* extra space before the photos */
 
@@ -627,24 +616,35 @@ p { margin: 0; }
 /* --------------------------------------------------------------------------
    6 · Closing
    -------------------------------------------------------------------------- */
-.closing .art--top    { max-height: 25%; }
-.closing .art--bottom { height: 23%; }
-.closing .content { justify-content: center; padding-top: 12cqb; padding-bottom: 23cqb; }
-.closing__msg, .signoff {
-  text-shadow: 0 0 6px var(--ivory), 0 0 14px var(--ivory), 0 0 22px var(--ivory);
+.closing .art--top    { max-height: 13%; }   /* smaller garland so a two-line message clears its strands */
+.closing .art--bottom { width: 100%; height: auto; }   /* whole elephant scene, no crop, no fade */
+
+/* Fixed layout: the pin sits 24.5% down the screen with the card right below it;
+   the two-line message is placed a clear gap above the pin. */
+.closing {
+  --msg-size: min(3.6cqi, 1.9cqb);        /* same as "With great pride and joy…" in Section 3 */
+  --msg-lh: 1.65;
+  --msg-gap: 4cqb;                        /* space between the message and the pin */
+}
+.closing .content {
+  justify-content: flex-start;
+  padding-top: calc(24.5cqb - 2 * var(--msg-lh) * var(--msg-size) - var(--msg-gap));
+  padding-bottom: 0;
 }
 .closing__msg {
-  max-width: min(27ch, 68cqi);   /* keeps lines clear of the hanging garland */
-  margin-bottom: 2.6cqb;
+  max-width: 82cqi;                       /* wide enough for exactly two lines */
+  text-wrap: balance;
+  margin-bottom: var(--msg-gap);
   font-family: var(--f-baskerville);
-  font-size: min(3.6cqi, 1.9cqb);
-  line-height: 1.65;
+  font-size: var(--msg-size);
+  line-height: var(--msg-lh);
   color: var(--ink);
 }
 
 /* Venue card: same size and finish as the Section 5 slideshow */
 .closing { --sq: min(78cqi, calc((100cqb - 34cqb) / 2.116)); }
 .venue {
+  flex: none;                           /* never squeezed: always the same size as the slideshow */
   display: flex; flex-direction: column;
   width: var(--sq); height: var(--sq);
   border-radius: 14px;
@@ -654,7 +654,16 @@ p { margin: 0; }
   text-decoration: none;
   color: inherit;
 }
-.venue__photo { flex: 1; min-height: 0; width: 100%; object-fit: cover; }
+.venue__map { position: relative; flex: 1; min-height: 0; overflow: hidden; }
+.venue__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* Location pin: centred above the venue card */
+.venue-pin {
+  flex: none;
+  width: 3.5cqi; height: auto;
+  margin: 0 0 1.2cqb;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .3));
+}
 .venue__panel {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -707,16 +716,15 @@ p { margin: 0; }
 }
 .venue:focus-visible { outline: 2px solid var(--pink); outline-offset: 4px; }
 
-.signoff {                              /* matches the couple's names in Sections 1 and 3 */
-  margin-top: 2.6cqb;
+.signoff {                              /* smaller, resting just above the elephants' heads */
+  position: absolute; left: 0; right: 0;
+  bottom: calc(74cqi * .70 + 1.2cqb);     /* the elephants start 30% down the 74cqi-tall scene */
+  margin: 0;
   font-family: var(--f-baskerville);
-  font-weight: 700;
-  font-size: min(4.6cqi, 2.4cqb);
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--green);
+  font-size: min(3.1cqi, 1.65cqb);
+  line-height: 1.5;
+  color: var(--ink);
 }
-.signoff .amp { font-family: var(--f-baskerville); font-weight: 700; color: var(--pink); }
 
 /* Falling petals */
 .petals { position: absolute; inset: 0; z-index: 15; pointer-events: none; overflow: hidden; }
@@ -805,8 +813,6 @@ p { margin: 0; }
 @container frame (min-aspect-ratio: 10/16) {
   .date .art--top, .date .art--bottom { max-height: 25%; }
   .invite .art--top { height: 37%; }
-  .closing .art--top { max-height: 22%; }
-  .closing .art--bottom { height: 21%; }
 }
 
 /* --------------------------------------------------------------------------
