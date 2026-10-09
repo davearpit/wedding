@@ -18,6 +18,9 @@
   --gold: #946715;
   --gold-light: #E2C27A;
   --line: #D3B57A;
+  --mint: #8FDCBB;          /* controls: button outline, dot fill */
+  --mint-light: #C3EEDC;    /* controls: dot hover, outlines on the video */
+  --mint-deep: #3E9E78;     /* controls: dot outline and current dot */
 
   --f-display: "Cinzel", "Times New Roman", serif;
   --f-body: "Lora", Georgia, serif;
@@ -251,6 +254,24 @@ p { margin: 0; }
    -------------------------------------------------------------------------- */
 .date .art--top    { max-height: 31%; }
 .date .art--bottom { max-height: 29%; }
+
+/* Bordered sections: a patterned strip runs down each side (tiled, so it fits any
+   screen height); the artwork sits between the strips. --bd is the strip width. */
+.bordered {
+  --bd: 5.2cqi;
+  background:
+    var(--border) left top / var(--bd) auto repeat-y,
+    var(--border) right top / var(--bd) auto repeat-y,
+    var(--ivory);
+}
+.bordered .art { width: calc(100% - 2 * var(--bd)); }
+.bordered .art--top    { right: var(--bd); }
+.bordered .art--bottom { left: var(--bd); }
+.date { --border: url("../img/border-pink.webp?v=1"); }
+.invite { --border: url("../img/border-red.webp?v=1"); }
+.events { --border: url("../img/border-green.webp?v=1"); }
+.story  { --border: url("../img/border-blue.webp?v=1"); }
+.closing { --border: url("../img/border-golden.webp?v=1"); }
 .date .content { padding-top: 0; padding-bottom: 7cqb; }
 .calendar {
   width: min(70cqi, 38cqb);
@@ -394,7 +415,7 @@ p { margin: 0; }
    3 · Invitation
    -------------------------------------------------------------------------- */
 .invite .art--top {
-  height: 43%;
+  height: 38.5%;                         /* 43% scaled to the width between the borders, so the same picture shows */
   object-fit: cover;
   object-position: center top;
 }
@@ -460,10 +481,12 @@ p { margin: 0; }
 /* --------------------------------------------------------------------------
    4 · Events
    -------------------------------------------------------------------------- */
-.events .art--top    { width: 100%; height: auto; }   /* garland runs edge to edge */
-.events .art--bottom { width: 100%; height: auto; }   /* whole basket scene, no crop, no fade */
+.events .art--top    { width: calc(100% - 2 * var(--bd)); height: auto; }   /* garland runs border to border */
+.events .art--bottom { width: calc(100% - 2 * var(--bd)); height: auto; }   /* whole basket scene, no crop, no fade */
 /* the scene is 72cqi tall; its centre is empty down to 54%, so text may end above the baskets */
-.events .content { justify-content: flex-start; padding-top: calc(45.7cqi + 3.4cqb); padding-bottom: calc(72cqi * .46 + 1.5cqb); }
+/* between the borders the garland is 41cqi tall and the basket scene 64.6cqi */
+.events .content { justify-content: flex-start; padding-top: calc(41cqi + 3.4cqb); padding-bottom: calc(64.6cqi * .46 + 1.5cqb); }
+.events .section-heading { font-size: min(4.35cqi, 2.4cqb); }   /* a touch smaller so the one-line heading clears the borders */
 .section-heading {
   margin: 0 -6cqi;                      /* headings may run a little wider than body text, so it stays on one line */
   font-family: var(--f-baskerville);
@@ -562,13 +585,22 @@ p { margin: 0; }
   line-height: 1.7;
   color: var(--ink);
 }
-/* butterfly in the bottom-left corner, just right of the music button, flying inward */
 .story__butterfly {
   position: absolute; z-index: 1;
-  left: 62px; bottom: max(calc(env(safe-area-inset-bottom) + 10px), 10px);
-  width: 17cqi; height: auto;
-  transform: scaleX(-1);
+  height: auto;
   pointer-events: none;
+}
+/* small one top-left beside the opening text, flying inward, just inside the left border */
+.story__butterfly--top {
+  left: calc(var(--bd, 0px) + 1.5cqi); top: 10cqb;
+  width: 8.5cqi;
+  transform: scaleX(-1) rotate(-8deg);
+}
+/* the usual size, bottom-right below the photos (diagonal to the text), just left of the previous / next buttons
+   (which sit 6px inside the border and are 44px wide) */
+.story__butterfly--bottom {
+  right: calc(var(--bd, 0px) + 56px); bottom: max(calc(env(safe-area-inset-bottom) + 10px), 10px);
+  width: 17cqi;
 }
 
 .journey { display: block; width: var(--sq); height: auto; margin-bottom: 2.6cqb; }   /* extra space before the photos */
@@ -617,7 +649,7 @@ p { margin: 0; }
    6 · Closing
    -------------------------------------------------------------------------- */
 .closing .art--top    { max-height: 13%; }   /* smaller garland so a two-line message clears its strands */
-.closing .art--bottom { width: 100%; height: auto; }   /* whole elephant scene, no crop, no fade */
+.closing .art--bottom { width: calc(100% - 2 * var(--bd)); height: auto; }   /* whole elephant scene between the borders, no crop, no fade */
 
 /* Fixed layout: the pin sits 24.5% down the screen with the card right below it;
    the two-line message is placed a clear gap above the pin. */
@@ -718,7 +750,7 @@ p { margin: 0; }
 
 .signoff {                              /* smaller, resting just above the elephants' heads */
   position: absolute; left: 0; right: 0;
-  bottom: calc(74cqi * .70 + 1.2cqb);     /* the elephants start 30% down the 74cqi-tall scene */
+  bottom: calc(66.3cqi * .70 + 1.2cqb);   /* the elephants start 30% down the scene, 66.3cqi tall between the borders */
   margin: 0;
   font-family: var(--f-baskerville);
   font-size: min(3.1cqi, 1.65cqb);
@@ -760,21 +792,21 @@ p { margin: 0; }
   content: "";
   width: 7px; height: 7px;
   border-radius: 50%;
-  border: 1.5px solid var(--gold);
+  border: 1.5px solid var(--mint-deep);
   background: var(--ivory);
   transition: all .3s ease;
 }
-.dots button:hover::before { background: var(--gold-light); }
-.dots button[aria-current="true"]::before { height: 18px; border-radius: 4px; background: var(--gold); }
-.frame.on-hero .dots button::before { border-color: #FFF8EA; background: transparent; }
-.frame.on-hero .dots button[aria-current="true"]::before { background: #FFF8EA; }
+.dots button:hover::before { background: var(--mint-light); }
+.dots button[aria-current="true"]::before { height: 18px; border-radius: 4px; background: var(--mint-deep); }
+.frame.on-hero .dots button::before { border-color: var(--mint-light); background: transparent; }
+.frame.on-hero .dots button[aria-current="true"]::before { background: var(--mint-light); }
 
 .ctrl {
   width: 44px; height: 44px;
   display: grid; place-items: center;
   padding: 0;
   border-radius: 50%;
-  border: 1px solid var(--line);
+  border: 1px solid var(--mint);
   background: rgba(255, 255, 255, .82);
   -webkit-backdrop-filter: blur(6px);
           backdrop-filter: blur(6px);
@@ -784,9 +816,9 @@ p { margin: 0; }
 }
 .ctrl:hover { background: var(--ivory); }
 .ctrl:active { transform: scale(.92); }
-.ctrl:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.ctrl:focus-visible { outline: 2px solid var(--mint-deep); outline-offset: 3px; }
 .ctrl svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s ease; }
-.frame.on-hero .ctrl { background: rgba(28, 34, 18, .55); border-color: rgba(246, 222, 156, .7); color: #FFF8EA; }
+.frame.on-hero .ctrl { background: rgba(28, 34, 18, .55); border-color: rgba(195, 238, 220, .8); color: #FFF8EA; }
 
 .sound {
   position: absolute; z-index: 20;
@@ -804,15 +836,21 @@ p { margin: 0; }
 }
 .pager .ctrl:disabled { visibility: hidden; }
 
+/* on the bordered pages (everything after the video), the controls step in just inside the side borders */
+.dots, .sound, .pager { transition: left .3s ease, right .3s ease; }
+.frame:not(.on-hero) .dots  { right: calc(5.2cqi + 1px); }
+.frame:not(.on-hero) .sound { left: calc(5.2cqi + 6px); }
+.frame:not(.on-hero) .pager { right: calc(5.2cqi + 6px); }
+
 /* --------------------------------------------------------------------------
    Short / wide frames
    -------------------------------------------------------------------------- */
 @container frame (max-aspect-ratio: 9/17) {
-  .invite .art--top { height: 45%; }
+  .invite .art--top { height: 40.3%; }
 }
 @container frame (min-aspect-ratio: 10/16) {
   .date .art--top, .date .art--bottom { max-height: 25%; }
-  .invite .art--top { height: 37%; }
+  .invite .art--top { height: 33.2%; }
 }
 
 /* --------------------------------------------------------------------------
