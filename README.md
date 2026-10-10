@@ -8,6 +8,7 @@ assets/css/style.css  styles (colours are CSS variables at the top)
 assets/js/main.js     countdown, music, section snapping, photo slideshow, map link
 assets/img/           optimised artwork and photos (WebP)
 assets/img/story/     the Section 5 slideshow photos (square, 1080px max)
+assets/img/border-*   the lotus side borders, one per section (tiled down the page)
 assets/video/         intro video (re-encoded, silent)
 assets/audio/         song.m4a — "Tumhi Dekho Naa" (the background music)
 backup/               original uploads and unused files (kept locally, never committed)
@@ -18,6 +19,14 @@ Save it as `assets/audio/song.m4a` (AAC plays on every browser, including older 
 It loops at 50% volume. Browsers don't allow sound before a guest interacts with the page, so the music
 starts on their first tap, click or key press (or right away, if the browser allows it).
 Use the local server below to test it, because the 50% volume handling on iPhones needs the page to be served over http.
+
+## Colours and borders
+Text uses two accent colours: green `#4C8414` (names and headings) and pink `#C9357F`
+(dates, times, venues), with dark olive `#2F3D1C` for body sentences. They're `--green`,
+`--pink` and `--ink` at the top of `style.css`.
+
+Sections 2–6 each have a lotus border down both sides. All borders share one width
+(`--bd` in `.bordered`); each section picks its strip with `--border`.
 
 ## Preview locally
 ```bash

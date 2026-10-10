@@ -7,12 +7,8 @@
 :root {
   --ivory: #FFFFFF;          /* page background: pure white */
   --ivory-deep: #F4EBDA;
-  --card: #FFFFFF;
   --ink: #2F3D1C;          /* deep olive, matches the calendar */
-  --leaf: #4A7330;
   --lotus: #E58FA6;
-  --rose: #B83B60;
-  --pink-deep: #A94064;    /* dusty rose pink */
   --pink: #C9357F;         /* lotus pink: hearts and countdown */
   --green: #4C8414;        /* leaf green */
   --gold: #946715;
@@ -267,11 +263,11 @@ p { margin: 0; }
 .bordered .art { width: calc(100% - 2 * var(--bd)); }
 .bordered .art--top    { right: var(--bd); }
 .bordered .art--bottom { left: var(--bd); }
-.date { --border: url("../img/border-pink.webp?v=1"); }
-.invite { --border: url("../img/border-maroon.webp?v=1"); }
-.events { --border: url("../img/border-green.webp?v=1"); }
+.date { --border: url("../img/border-rose.webp?v=1"); }
+.invite { --border: url("../img/border-brick.webp?v=1"); }
+.events { --border: url("../img/border-yellow.webp?v=1"); }
 .story  { --border: url("../img/border-blue.webp?v=2"); }
-.closing { --border: url("../img/border-bronze.webp?v=1"); }
+.closing { --border: url("../img/border-leaf.webp?v=1"); }
 .date .content { padding-top: 0; padding-bottom: 7cqb; }
 .calendar {
   width: min(70cqi, 38cqb);
@@ -454,7 +450,7 @@ p { margin: 0; }
   font-size: clamp(11px, min(2.9cqi, 1.5cqb), 12px);
   letter-spacing: .3em;
   text-transform: uppercase;
-  color: var(--rose);
+  color: var(--pink);
 }
 .invite__with span { width: 28px; height: 1px; background: var(--line); }
 .invite__when {
@@ -475,8 +471,8 @@ p { margin: 0; }
   letter-spacing: .16em;
   text-transform: uppercase;
 }
-.invite__time { margin-bottom: .6cqb; color: var(--pink-deep); }
-.invite__when strong { font-weight: 700; color: var(--pink-deep); }
+.invite__time { margin-bottom: .6cqb; color: var(--pink); }
+.invite__when strong { font-weight: 700; color: var(--pink); }
 
 /* --------------------------------------------------------------------------
    4 · Events
@@ -516,8 +512,6 @@ p { margin: 0; }
   width: 100%;
   max-width: 300px;
 }
-/* where a leaf passes behind a letter (short screens), a tight white glow keeps the word readable */
-.events .content { text-shadow: 0 0 3px #fff, 0 0 6px #fff, 0 0 10px #fff; }
 .events__divider {
   display: flex; align-items: center; justify-content: center; gap: 10px;
   margin: 0;
@@ -686,7 +680,7 @@ p { margin: 0; }
   border-radius: 14px;
   overflow: hidden;
   background: #fff;
-  border: 1px solid #C9A45C;                                   /* thin antique-gold outline */
+  border: 1px solid var(--pink);                              /* thin pink outline (#C9357F) */
   box-shadow: 0 8px 20px -14px rgba(47, 61, 28, .3);           /* softened */
   text-decoration: none;
   color: inherit;
@@ -699,7 +693,6 @@ p { margin: 0; }
   flex: none;
   width: 3.5cqi; height: auto;
   margin: 0 0 1.2cqb;
-  filter: drop-shadow(0 1px 1.5px rgba(90, 38, 48, .25));   /* flat marker, just lifted off the page */
 }
 .venue__panel {
   display: grid;
