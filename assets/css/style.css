@@ -266,7 +266,7 @@ p { margin: 0; }
 .date    { --border: url("../img/border-pink.webp?v=4"); }
 .invite  { --border: url("../img/border-red.webp?v=4"); }
 .events  { --border: url("../img/border-yellow.webp?v=4"); }
-.story   { --border: url("../img/border-blue.webp?v=4"); }
+.story   { --border: url("../img/border-purple.webp?v=1"); }
 .closing { --border: url("../img/border-green.webp?v=4"); }
 .date .content { padding-top: 0; padding-bottom: 7cqb; }
 .calendar {
