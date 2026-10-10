@@ -139,7 +139,7 @@ p { margin: 0; }
   padding: max(env(safe-area-inset-top), 4cqb) 10cqi max(env(safe-area-inset-bottom), 4cqb);
 }
 
-/* Illustration pieces: white paper is multiplied away so they melt into the ivory */
+/* Illustration pieces: drawn on white, shown as-is (no filters or blending) on the white page */
 .art {
   position: absolute;
   z-index: 0;
@@ -263,11 +263,11 @@ p { margin: 0; }
 .bordered .art { width: calc(100% - 2 * var(--bd)); }
 .bordered .art--top    { right: var(--bd); }
 .bordered .art--bottom { left: var(--bd); }
-.date { --border: url("../img/border-rose.webp?v=1"); }
-.invite { --border: url("../img/border-brick.webp?v=1"); }
-.events { --border: url("../img/border-yellow.webp?v=1"); }
-.story  { --border: url("../img/border-blue.webp?v=2"); }
-.closing { --border: url("../img/border-leaf.webp?v=1"); }
+.date    { --border: url("../img/border-pink.webp?v=4"); }
+.invite  { --border: url("../img/border-red.webp?v=4"); }
+.events  { --border: url("../img/border-yellow.webp?v=4"); }
+.story   { --border: url("../img/border-blue.webp?v=4"); }
+.closing { --border: url("../img/border-green.webp?v=4"); }
 .date .content { padding-top: 0; padding-bottom: 7cqb; }
 .calendar {
   width: min(70cqi, 38cqb);
